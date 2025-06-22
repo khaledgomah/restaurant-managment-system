@@ -22,8 +22,7 @@ class _PaymentDoneScreenState extends State<PaymentDoneScreen> {
     timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       final state = BlocProvider.of<PaymentStatusCubit>(context).state;
 
-      if (state is PaymentStatusSuccess &&
-          (state.status == PaymentStatus.success)) {
+      if (state is PaymentStatusSuccess) {
         timer.cancel();
       } else {
         BlocProvider.of<PaymentStatusCubit>(context).checkPaymentStatus();
@@ -36,10 +35,7 @@ class _PaymentDoneScreenState extends State<PaymentDoneScreen> {
     return Scaffold(
       body: BlocBuilder<PaymentStatusCubit, PaymentStatusState>(
         builder: (context, state) {
-          if (state is PaymentStatusLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
+      
           if (state is PaymentStatusFailure) {
             return _buildStatusUI(
               icon: Icons.error,
@@ -47,26 +43,21 @@ class _PaymentDoneScreenState extends State<PaymentDoneScreen> {
               message: "Error occurred: ${state.message}",
             );
           }
-
-          if (state is PaymentStatusSuccess) {
-            switch (state.status) {
-              case PaymentStatus.success:
-                return _buildStatusUI(
-                  icon: Icons.check_circle,
-                  color: Colors.green,
-                  message: "Payment completed successfully ✅",
-                );
-              case PaymentStatus.pending:
-                return _buildStatusUI(
-                  icon: Icons.hourglass_empty,
-                  color: Colors.orange,
-                  message: "Payment is still pending ⏳",
-                );
-              
-            }
+          if (state is PaymentStatusPending) {
+            return _buildStatusUI(
+              icon: Icons.hourglass_empty,
+              color: Colors.orange,
+              message: "Payment is still pending ⏳",
+            );
           }
-
-          return const SizedBox.shrink(); // fallback
+          if (state is PaymentStatusSuccess) {
+            return _buildStatusUI(
+              icon: Icons.check_circle,
+              color: Colors.green,
+              message: "Payment completed successfully ✅",
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

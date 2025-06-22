@@ -33,11 +33,9 @@ class _CheckOutViewState extends State<CheckOutView> {
           if (state is CheckoutSuccess) {
             final paymentUrl =
                 'https://accept.paymob.com/api/acceptance/iframes/${CheckoutConstants.iframeId}?payment_token=${state.paymentKeyResponse.paymentKey}';
-
             WidgetsBinding.instance.addPostFrameCallback((_) {
               html.window.open(paymentUrl, '_blank');
             });
-
             return BlocProvider(
               create: (context) => PaymentStatusCubit(),
               child: PaymentDoneScreen(),

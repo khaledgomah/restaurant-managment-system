@@ -18,12 +18,17 @@ class PaymentStatusCubit extends Cubit<PaymentStatusState> {
           (paymentStatus) {
         switch (paymentStatus) {
           case PaymentStatus.success:
-            emit(PaymentStatusSuccess(PaymentStatus.success));
+            emit(PaymentStatusSuccess());
             break;
           case PaymentStatus.pending:
-            emit(PaymentStatusSuccess(PaymentStatus.pending));
+            emit(PaymentStatusPending());
             break;
-         
+          case PaymentStatus.failed:
+            emit(PaymentStatusFailure('Payment failed'));
+            break;
+          case PaymentStatus.loading:
+            emit(PaymentStatusLoading());
+            break;
         }
       });
     } catch (e) {

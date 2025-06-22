@@ -46,12 +46,10 @@ class CheckoutRepositoryImp implements CheckoutRepository {
           return Right(_authToken);
         },
       );
-
       if (tokenResponse.isLeft()) {
         return Left((tokenResponse as Left).value);
       }
     }
-
     // ✅ Step 2: Create Order
     final orderResult =
         await remoteDataSource.makeOrder(_authToken, orderRequest);
@@ -132,9 +130,11 @@ class CheckoutRepositoryImp implements CheckoutRepository {
 
       if (status == 'PAID') {
         return Right(PaymentStatus.success);
-      } else {
+      }else if (status == 'FAILED') {
+        return Right(PaymentStatus.failed);
+      }else  {
         return Right(PaymentStatus.pending);
-      } 
+      }
     } catch (e) {
       return Left(DioFailure("Failed to get payment status: $e"));
     }
