@@ -35,7 +35,7 @@ class CheckoutRemoteDataSource {
     }
   }
 
- 
+
   Future<Either<Failure, Map<String, dynamic>>> getToken() async {
     try {
       var response = await _apiService.request(
