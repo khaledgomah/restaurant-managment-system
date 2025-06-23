@@ -6,31 +6,34 @@ import 'package:restaurant_system/features/online_order/domain/usecases/usecases
 part 'online_order_state.dart';
 
 class OnlineOrderCubit extends Cubit<OnlineOrderState> {
-  final OnlineOrderUseCases onlineOrderUseCases;
+  final OnlineOrderUseCases _onlineOrderUseCases;
 
   OnlineOrderCubit({
-    required this.onlineOrderUseCases,
-  }) : super(OnlineOrderState(ordersStates: OrdersStates.loading));
+    required OnlineOrderUseCases onlineOrderUseCases,
+  })  : _onlineOrderUseCases = onlineOrderUseCases,
+        super(OnlineOrderState(ordersStates: OrdersStates.loading));
 
-  void getPendingOrders() {
-    onlineOrderUseCases.getPendingOrders.call(NoParams()).then((result) {
-      result.fold(
+  void getPendingOrders() async {
+    emit(state.copyWith(ordersStates: OrdersStates.loading));
+    var pendingOrdersResult = await _onlineOrderUseCases.getPendingOrders.call(NoParams());
+
+    pendingOrdersResult.fold(
         (failure) => emit(state.copyWith(
-            ordersStates: OrdersStates.failure,
-          )),
+          ordersStates: OrdersStates.failure,
+        )),
         (orders) => emit(
-            state.copyWith(
-              ordersStates: OrdersStates.success,
-              pendingOrders: orders,
-            ),
+          state.copyWith(
+            ordersStates: OrdersStates.success,
+            pendingOrders: orders,
           ),
+        ),
       );
-    });
   }
 
   void getCompletedOrders() async {
+    emit(state.copyWith(ordersStates: OrdersStates.loading));
     var completedOrdersResult =
-        await onlineOrderUseCases.getCompletedOrders.call(NoParams());
+        await _onlineOrderUseCases.getCompletedOrders.call(NoParams());
     completedOrdersResult.fold(
       (failure) => emit(state.copyWith(ordersStates: OrdersStates.failure)),
       (orders) => emit(
@@ -40,12 +43,12 @@ class OnlineOrderCubit extends Cubit<OnlineOrderState> {
         ),
       ),
     );
-  
   }
 
   void completeOrder(String orderId) async {
+    emit(state.copyWith(ordersStates: OrdersStates.loading));
     var completeOrderResult =
-        await onlineOrderUseCases.completeOrder.call(orderId);
+        await _onlineOrderUseCases.completeOrder.call(orderId);
     completeOrderResult.fold(
       (failure) => emit(state.copyWith(ordersStates: OrdersStates.failure)),
       (_) {
