@@ -1,10 +1,32 @@
 part of 'online_order_cubit.dart';
 
-abstract class OnlineOrderState extends Equatable {
-  const OnlineOrderState();
+class OnlineOrderState {
+  final OrdersStates ordersStates;
+  final List<OnlineOrder>? pendingOrders;
+  final List<OnlineOrder>? completedOrders;
+  const OnlineOrderState({
+    required this.ordersStates,
+    this.pendingOrders,
+    this.completedOrders,
+  });
 
-  @override
-  List<Object> get props => [];
+  OnlineOrderState copyWith({
+    OrdersStates? ordersStates,
+    List<OnlineOrder>? pendingOrders,
+    List<OnlineOrder>? completedOrders,
+  }) {
+    return OnlineOrderState(
+      ordersStates: ordersStates ?? this.ordersStates,
+      pendingOrders: pendingOrders ?? this.pendingOrders,
+      completedOrders: completedOrders ?? this.completedOrders,
+    );
+  }
 }
 
-class OnlineOrderInitial extends OnlineOrderState {}
+enum OrdersStates { loading, success, failure }
+
+extension OrdersStatus on OnlineOrderState {
+  bool get isOrderLoading => ordersStates == OrdersStates.loading;
+  bool get isOrderSuccess => ordersStates == OrdersStates.success;
+  bool get isOrderFail => ordersStates == OrdersStates.failure;
+}

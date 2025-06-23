@@ -4,6 +4,20 @@ import 'package:restaurant_system/core/use_case/use_case.dart';
 import 'package:restaurant_system/features/online_order/data/models/online_order.dart';
 import 'package:restaurant_system/features/online_order/domain/repositories/repository.dart';
 
+
+class OnlineOrderUseCases {
+  final GetCompletedOrdersUsecase getCompletedOrders;
+  final GetPendingOrdersUsecase getPendingOrders;
+  final CompleteOrderUsecase completeOrder;
+
+  OnlineOrderUseCases({
+    required this.getCompletedOrders,
+    required this.getPendingOrders,
+    required this.completeOrder,
+  });
+}
+
+
 class GetCompletedOrdersUsecase implements UseCase<List<OnlineOrder>, NoParams> {
   final OnlineOrderRepository onlineOrderRepository;
   GetCompletedOrdersUsecase(this.onlineOrderRepository);
