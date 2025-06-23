@@ -4,11 +4,10 @@ import 'package:restaurant_system/features/dashboard/business_logic/dashboard/da
 import 'package:restaurant_system/core/data/models/drawer_item_model.dart';
 import 'package:restaurant_system/core/custom_widgets/drawer_item_widget.dart';
 import 'package:restaurant_system/config/assets.dart';
-import 'package:restaurant_system/core/functions/on_generate_routes.dart';
 
 class CustomDashboardDrawer extends StatefulWidget {
-  const CustomDashboardDrawer({super.key});
-
+  const CustomDashboardDrawer({super.key, this.routeName});
+final String? routeName;
   @override
   State<CustomDashboardDrawer> createState() => _CustomDashboardDrawerState();
 }
@@ -37,7 +36,7 @@ class _CustomDashboardDrawerState extends State<CustomDashboardDrawer> {
                 itemCount: drawerItems.length,
                 itemBuilder: (context, index) => GestureDetector(
                     onTap: () {
-                      if (drawerItems[index].routeName != AppRoutes.dashboar) {
+                      if (drawerItems[index].routeName != widget.routeName) {
                         Navigator.pushNamed(
                           context,
                           drawerItems[index].routeName,
@@ -46,7 +45,7 @@ class _CustomDashboardDrawerState extends State<CustomDashboardDrawer> {
                     },
                     child: DrawerItemWidget(
                       drawerItems[index],
-                      isSelected: 1 == index,
+                      isSelected: drawerItems[index].routeName == widget.routeName,
                     )),
               ),
             );

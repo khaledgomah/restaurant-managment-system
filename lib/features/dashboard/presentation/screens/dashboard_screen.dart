@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurant_system/core/custom_widgets/sidebar_layout.dart';
+import 'package:restaurant_system/core/functions/on_generate_routes.dart';
 import 'package:restaurant_system/features/dashboard/business_logic/dashboard/dashboard_cubit.dart';
 import 'package:restaurant_system/features/dashboard/presentation/widgets/dashboard.dart';
-import 'package:restaurant_system/features/dashboard/presentation/widgets/dashboard_drawer.dart';
 import 'package:restaurant_system/features/dashboard/presentation/widgets/statistics.dart';
-import 'package:restaurant_system/config/app_colors.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -22,34 +22,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backGroundcolor,
-      body: SingleChildScrollView(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return SidebarLayout(
+        routeName: AppRoutes.dashboard,
+        screen: Row(
           children: [
-            Expanded(
-              flex: 146,
-              child: BlocBuilder<DashboardCubit, DashboardState>(
-                builder: (context, state) {
-                  return CustomDashboardDrawer();
-                },
-              ),
-            ),
-            SizedBox(
-              width: 22,
-            ),
             Expanded(flex: 509, child: Dashboard()),
             SizedBox(
               width: 22,
             ),
             Expanded(flex: 309, child: Statistics()),
-            SizedBox(
-              width: 16,
-            ),
           ],
-        ),
-      ),
-    );
+        ));
   }
 }

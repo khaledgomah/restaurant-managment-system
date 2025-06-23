@@ -28,10 +28,11 @@ class DashboardCubit extends Cubit<DashboardState> {
   }
 
   Future<void> getDashboardData(int duration) async {
-    this.duration = duration;// to select the duration of the sales data showing
+    this.duration =
+        duration; // to select the duration of the sales data showing
     emit(DashboardLoading(state.visibleCount));
     final salesResponse = await DashboardRepository(instance()).getSalesInfo();
-    
+
     final itemsResponse = await CoreRepository(instance()).getItemsData();
 
     if (salesResponse.isLeft() || itemsResponse.isLeft()) {
@@ -91,12 +92,12 @@ class DashboardCubit extends Cubit<DashboardState> {
         iconPath: Assets.imagesMenu,
       ),
       DrawerItemModel(
-        routeName: AppRoutes.dashboar,
+        routeName: AppRoutes.dashboard,
         title: 'Dashboard',
         iconPath: Assets.imagesPieChart,
       ),
       DrawerItemModel(
-        routeName: '',
+        routeName: AppRoutes.onlineOrder,
         title: 'Online Order',
         iconPath: Assets.imagesOrder,
       ),
