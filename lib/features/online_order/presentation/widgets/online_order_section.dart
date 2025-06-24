@@ -1,11 +1,23 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_system/core/functions/format_date.dart';
-import 'package:restaurant_system/features/online_order/data/models/online_order.dart';
+import 'package:restaurant_system/features/online_order/presentation/cubit/online_order_cubit.dart';
 import 'package:restaurant_system/features/online_order/presentation/widgets/orders_list_view.dart';
 
-class OnlineOrderSection extends StatelessWidget {
+class OnlineOrderSection extends StatefulWidget {
   const OnlineOrderSection({super.key});
+
+  @override
+  State<OnlineOrderSection> createState() => _OnlineOrderSectionState();
+}
+
+class _OnlineOrderSectionState extends State<OnlineOrderSection> {
+  bool isPending = true;
+  @override
+  void initState() {
+    context.read<OnlineOrderCubit>().getPendingOrders();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,31 +29,33 @@ class OnlineOrderSection extends StatelessWidget {
         SizedBox(height: 16),
         Row(
           children: [
-            TextButton(onPressed: () {}, child: Text('Pending')),
-            TextButton(onPressed: () {}, child: Text('Completed')),
+            TextButton(
+                onPressed: () {
+                  isPending = true;
+                  context.read<OnlineOrderCubit>().getPendingOrders();
+                },
+                child: Text('Pending')),
+            TextButton(
+                onPressed: () {
+                  isPending = false;
+                  context.read<OnlineOrderCubit>().getCompletedOrders();
+                },
+                child: Text('Completed')),
           ],
         ),
-        OrdersListView(orders: [
-          // Sample data for demonstration purposes
-          OnlineOrder(
-            status: 'Pending',
-            orderId: '1',
-            createdAt: Timestamp.now(),
-            order: {'item1': 2, 'item2': 1},
-          ),
-          OnlineOrder(
-            status: 'Completed',
-            orderId: '2',
-            createdAt: Timestamp.now(),
-            order: {'item3': 1},
-          ),
-          OnlineOrder(
-            status: 'Pending',
-            orderId: '3',
-            createdAt: Timestamp.now(),
-            order: {'item1': 1, 'item4': 3},
-          ),
-        ]),
+        BlocBuilder<OnlineOrderCubit, OnlineOrderState>(
+          builder: (context, state) {
+            if (state.ordersStates == OrdersStates.loading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state.ordersStates == OrdersStates.failure) {
+              return Center(child: Text('Failed to load orders'));
+            }
+            return OrdersListView(
+                orders: isPending
+                    ? state.pendingOrders ?? []
+                    : state.completedOrders ?? []);
+          },
+        ),
       ],
     );
   }

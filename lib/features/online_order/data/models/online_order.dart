@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class OnlineOrder {
   final String status;
-  final String orderId;
+  final int orderId;
   final Timestamp createdAt;
   final Map<String, int> order;
   OnlineOrder({
@@ -29,7 +29,7 @@ class OnlineOrder {
   }
 
   OnlineOrder copyWith({
-    String? orderId,
+    int? orderId,
     Timestamp? createdAt,
     Map<String, int>? order,
   }) {
@@ -44,10 +44,12 @@ class OnlineOrder {
   factory OnlineOrder.fromMap(Map<String, dynamic> map) {
     return OnlineOrder(
       status: map['status'] as String,
-      orderId: map['orderId'] as String,
+      orderId: map['orderId'] as int,
       createdAt: map['createdAt'],
       order: Map<String, int>.from(
-        (map['order'] as Map<String, int>),
+        (map['order'] as Map<String, dynamic>).map(
+          (key, value) => MapEntry(key, value as int),
+        ),
       ),
     );
   }

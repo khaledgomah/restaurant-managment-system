@@ -25,7 +25,7 @@ void init() {
       () => OnlineOrderRepositoryImpl(onlineOrderRemoteDataSource: instance()));
 
   instance.registerLazySingleton(() => OnlineOrderUseCases(
-      completeOrder: CompleteOrderUsecase(instance()),
-      getPendingOrders: GetPendingOrdersUsecase(instance()),
-      getCompletedOrders: GetCompletedOrdersUsecase(instance())));
+      completeOrder: CompleteOrderUsecase(instance<OnlineOrderRepositoryImpl>()),
+      getPendingOrders: GetPendingOrdersUsecase(instance<OnlineOrderRepositoryImpl>()),
+      getCompletedOrders: GetCompletedOrdersUsecase(instance<OnlineOrderRepositoryImpl>())));
 }

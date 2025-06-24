@@ -14,6 +14,7 @@ class OrdersListView extends StatelessWidget {
       itemCount: orders.length,
       itemBuilder: (context, index) {
         return OnlineOrderWidget(
+          isSelected: false,
           order: orders[index],
         );
       },

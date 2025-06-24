@@ -2,16 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:restaurant_system/config/app_colors.dart';
 import 'package:restaurant_system/features/online_order/data/models/online_order.dart';
 
 class OnlineOrderWidget extends StatelessWidget {
-  const OnlineOrderWidget({super.key, required this.order});
-
+  const OnlineOrderWidget({super.key, required this.order, required this.isSelected});
+  final bool isSelected;
   final OnlineOrder order;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      tileColor: isSelected ? AppColors.primaryColor : null,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

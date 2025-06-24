@@ -7,6 +7,7 @@ import 'package:restaurant_system/features/dashboard/business_logic/dashboard/da
 import 'package:restaurant_system/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:restaurant_system/features/new_order/business_logic/drawer_cubit/new_order_cubit.dart';
 import 'package:restaurant_system/features/new_order/presentation/screens/new_order_screen.dart';
+import 'package:restaurant_system/features/online_order/domain/usecases/usecases.dart';
 import 'package:restaurant_system/features/online_order/presentation/cubit/online_order_cubit.dart';
 import 'package:restaurant_system/features/online_order/presentation/pages/online_orders_view.dart';
 
@@ -45,7 +46,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => BlocProvider(
           create: (context) =>
-              OnlineOrderCubit(onlineOrderUseCases: instance()),
+              OnlineOrderCubit(onlineOrderUseCases: instance<OnlineOrderUseCases>()),
           child: OnlineOrdersView(),
         ),
       );

@@ -13,21 +13,31 @@ class OnlineOrderCubit extends Cubit<OnlineOrderState> {
   })  : _onlineOrderUseCases = onlineOrderUseCases,
         super(OnlineOrderState(ordersStates: OrdersStates.loading));
 
+  void changeCurrentIndex(int index) {
+    emit(state.copyWith(currentIndex: index));
+  }
+
   void getPendingOrders() async {
     emit(state.copyWith(ordersStates: OrdersStates.loading));
-    var pendingOrdersResult = await _onlineOrderUseCases.getPendingOrders.call(NoParams());
+    var pendingOrdersResult =
+        await _onlineOrderUseCases.getPendingOrders.call(NoParams());
 
     pendingOrdersResult.fold(
-        (failure) => emit(state.copyWith(
-          ordersStates: OrdersStates.failure,
-        )),
-        (orders) => emit(
+      (failure) => emit(state.copyWith(
+        ordersStates: OrdersStates.failure,
+      )),
+      (orders) {
+        orders.sort(
+          (a, b) => a.orderId.compareTo(b.orderId),
+        );
+        emit(
           state.copyWith(
             ordersStates: OrdersStates.success,
             pendingOrders: orders,
           ),
-        ),
-      );
+        );
+      },
+    );
   }
 
   void getCompletedOrders() async {
@@ -36,47 +46,52 @@ class OnlineOrderCubit extends Cubit<OnlineOrderState> {
         await _onlineOrderUseCases.getCompletedOrders.call(NoParams());
     completedOrdersResult.fold(
       (failure) => emit(state.copyWith(ordersStates: OrdersStates.failure)),
-      (orders) => emit(
-        state.copyWith(
-          ordersStates: OrdersStates.success,
-          completedOrders: orders,
-        ),
-      ),
+      (orders) {
+        orders.sort(
+          (a, b) => a.orderId.compareTo(b.orderId),
+        );
+        emit(
+          state.copyWith(
+            ordersStates: OrdersStates.success,
+            completedOrders: orders,
+          ),
+        );
+      },
     );
   }
-Future<void> completeOrder(String orderId) async {
-  emit(state.copyWith(ordersStates: OrdersStates.loading));
 
-  final result = await _onlineOrderUseCases.completeOrder(orderId);
-  result.fold(
-    (failure) => emit(state.copyWith(ordersStates: OrdersStates.failure)),
-    (_) async {
-      final results = await Future.wait([
-        _onlineOrderUseCases.getPendingOrders(NoParams()),
-        _onlineOrderUseCases.getCompletedOrders(NoParams()),
-      ]);
+  Future<void> completeOrder(String orderId) async {
+    emit(state.copyWith(ordersStates: OrdersStates.loading));
 
-      final pendingResult = results[0];
-      final completedResult = results[1];
+    final result = await _onlineOrderUseCases.completeOrder(orderId);
+    result.fold(
+      (failure) => emit(state.copyWith(ordersStates: OrdersStates.failure)),
+      (_) async {
+        final results = await Future.wait([
+          _onlineOrderUseCases.getPendingOrders(NoParams()),
+          _onlineOrderUseCases.getCompletedOrders(NoParams()),
+        ]);
 
-      List<OnlineOrder>? pending = state.pendingOrders;
-      List<OnlineOrder>? completed = state.completedOrders;
+        final pendingResult = results[0];
+        final completedResult = results[1];
 
-      if (pendingResult.isRight()) {
-        pending = pendingResult.getOrElse(() => []);
-      }
+        List<OnlineOrder>? pending = state.pendingOrders;
+        List<OnlineOrder>? completed = state.completedOrders;
 
-      if (completedResult.isRight()) {
-        completed = completedResult.getOrElse(() => []);
-      }
+        if (pendingResult.isRight()) {
+          pending = pendingResult.getOrElse(() => []);
+        }
 
-      emit(state.copyWith(
-        ordersStates: OrdersStates.success,
-        pendingOrders: pending,
-        completedOrders: completed,
-      ));
-    },
-  );
-}
+        if (completedResult.isRight()) {
+          completed = completedResult.getOrElse(() => []);
+        }
 
+        emit(state.copyWith(
+          ordersStates: OrdersStates.success,
+          pendingOrders: pending,
+          completedOrders: completed,
+        ));
+      },
+    );
+  }
 }
