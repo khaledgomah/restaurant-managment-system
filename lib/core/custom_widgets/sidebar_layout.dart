@@ -1,24 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_system/features/dashboard/business_logic/dashboard/dashboard_cubit.dart';
-import 'package:restaurant_system/features/dashboard/presentation/widgets/dashboard_drawer.dart';
+import 'package:restaurant_system/core/custom_widgets/custom_drawer.dart';
 import 'package:restaurant_system/config/app_colors.dart';
 
-class SidebarLayout extends StatefulWidget {
+class SidebarLayout extends StatelessWidget {
   final Widget screen;
   final String routeName;
-  const SidebarLayout({super.key, required this.screen, required this.routeName});
-
-  @override
-  State<SidebarLayout> createState() => _SidebarLayoutState();
-}
-
-class _SidebarLayoutState extends State<SidebarLayout> {
-  @override
-  void initState() {
-    BlocProvider.of<DashboardCubit>(context).getDashboardData(0);
-    super.initState();
-  }
+  const SidebarLayout(
+      {super.key, required this.screen, required this.routeName});
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +18,12 @@ class _SidebarLayoutState extends State<SidebarLayout> {
           children: [
             Expanded(
               flex: 146,
-              child: BlocBuilder<DashboardCubit, DashboardState>(
-                builder: (context, state) {
-                  return CustomDashboardDrawer(routeName: widget.routeName);
-                },
-              ),
+              child: CustomDrawer(routeName: routeName),
             ),
             SizedBox(
               width: 22,
             ),
-            Expanded(flex: 830, child: widget.screen),
+            Expanded(flex: 830, child: screen),
             SizedBox(
               width: 16,
             ),
