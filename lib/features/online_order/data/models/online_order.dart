@@ -6,12 +6,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class OnlineOrder {
   final String status;
   final String orderId;
-  final Timestamp? createdAt;
+  final Timestamp createdAt;
   final Map<String, int> order;
   OnlineOrder({
     required this.status,
     required this.orderId,
-    this.createdAt,
+    required this.createdAt,
     required this.order,
   });
 

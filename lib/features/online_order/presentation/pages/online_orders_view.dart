@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_system/core/custom_widgets/sidebar_layout.dart';
 import 'package:restaurant_system/core/functions/on_generate_routes.dart';
+import 'package:restaurant_system/features/online_order/presentation/widgets/online_order_section.dart';
 
 class OnlineOrdersView extends StatelessWidget {
   const OnlineOrdersView({super.key});
@@ -11,9 +12,9 @@ class OnlineOrdersView extends StatelessWidget {
       routeName: AppRoutes.onlineOrder,
       screen: Row(
         children: [
-          Expanded(child: Placeholder()),
+          Expanded(flex: 509, child: OnlineOrderSection()),
           SizedBox(width: 16),
-          Expanded(child: Placeholder()),
+          Expanded(flex: 309, child: Placeholder()),
         ],
       ),
     );
