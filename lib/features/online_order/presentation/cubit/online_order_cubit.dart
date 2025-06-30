@@ -13,8 +13,8 @@ class OnlineOrderCubit extends Cubit<OnlineOrderState> {
   })  : _onlineOrderUseCases = onlineOrderUseCases,
         super(OnlineOrderState(ordersStates: OrdersStates.loading));
 
-  void changeCurrentIndex(int index) {
-    emit(state.copyWith(currentIndex: index));
+  void changeSelectedOrder( Map<String, int> order ) {
+    emit(state.copyWith(selectedOrder:order));
   }
 
   void getPendingOrders() async {

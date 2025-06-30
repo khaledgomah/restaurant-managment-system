@@ -5,12 +5,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class OnlineOrder {
   final bool isPaid;
+  final num price;
   final String status;
   final int orderId;
   final Timestamp createdAt;
   final Map<String, int> order;
   OnlineOrder({
     this.isPaid = true,
+    required this.price, 
     required this.status,
     required this.orderId,
     required this.createdAt,
@@ -19,10 +21,11 @@ class OnlineOrder {
 
   @override
   String toString() =>
-      'OnlineOrder(status: $status, orderId: $orderId, createdAt: $createdAt, order: $order)';
+      'OnlineOrder(status: $status, orderId: $orderId, createdAt: $createdAt, order: $order, price: $price)';
 
   Map<String, dynamic> toJson() {
     return {
+      'price': price,
       'isPaid': isPaid,
       'status': status,
       'orderId': orderId,
@@ -32,12 +35,14 @@ class OnlineOrder {
   }
 
   OnlineOrder copyWith({
+    num? price,
     bool? isPaid,
     int? orderId,
     Timestamp? createdAt,
     Map<String, int>? order,
   }) {
     return OnlineOrder(
+      price: price ??this.price,
       status: status,
       orderId: orderId ?? this.orderId,
       createdAt: createdAt ?? this.createdAt,
@@ -48,6 +53,7 @@ class OnlineOrder {
 
   factory OnlineOrder.fromMap(Map<String, dynamic> map) {
     return OnlineOrder(
+      price:map['price'] ??0 ,
       isPaid: map['isPaid'] ?? true,
       status: map['status'] as String,
       orderId: map['orderId'] as int,
