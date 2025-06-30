@@ -7,6 +7,7 @@ class AppStyles {
       fontFamily: AppFonts.fontFamily,
       fontWeight: FontWeight.bold,
       fontSize: 12,
+      letterSpacing: .5
     );
   }
 

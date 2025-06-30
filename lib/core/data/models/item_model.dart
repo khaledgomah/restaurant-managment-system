@@ -3,7 +3,7 @@ import 'dart:convert';
 abstract class ItemModel {
   final String name;
   final int orders;
-  final double ppu;
+  final num ppu;
   final String type;
   final String? imagePath;
   ItemModel(
@@ -28,28 +28,28 @@ abstract class ItemModel {
         return Burger(
           name: map['name'] as String,
           orders: map['orders'] as int,
-          ppu: map['ppu'] as double,
+          ppu: map['ppu'] as num,
           type: map['type'] as String,
         );
       case 'meal':
         return Meal(
           name: map['name'] as String,
           orders: map['orders'] as int,
-          ppu: map['ppu'] as double,
+          ppu: map['ppu'] as num,
           type: map['type'] as String,
         );
       case 'sandwitch':
         return Sandwitch(
           name: map['name'] as String,
           orders: map['orders'] as int,
-          ppu: map['ppu'] as double,
+          ppu: map['ppu'] as num,
           type: map['type'] as String,
         );
       case 'side':
         return Side(
           name: map['name'] as String,
           orders: map['orders'] as int,
-          ppu: map['ppu'] as double,
+          ppu: map['ppu'] as num,
           type: map['type'] as String,
         );
       default:

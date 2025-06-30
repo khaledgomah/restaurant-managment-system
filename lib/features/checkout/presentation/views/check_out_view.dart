@@ -1,5 +1,4 @@
-// ignore: deprecated_member_use, avoid_web_libraries_in_flutter
-import 'dart:html' as html;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_system/features/checkout/constants.dart';
@@ -7,6 +6,7 @@ import 'package:restaurant_system/features/checkout/data/sources/sources.dart';
 import 'package:restaurant_system/features/checkout/presentation/cubit/checkout/checkout_cubit.dart';
 import 'package:restaurant_system/features/checkout/presentation/cubit/payment_status/payment_status_cubit.dart';
 import 'package:restaurant_system/features/checkout/presentation/views/payment_done_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CheckOutView extends StatefulWidget {
   const CheckOutView({super.key, required this.amountCents});
@@ -34,7 +34,7 @@ class _CheckOutViewState extends State<CheckOutView> {
             final paymentUrl =
                 'https://accept.paymob.com/api/acceptance/iframes/${CheckoutConstants.iframeId}?payment_token=${state.paymentKeyResponse.paymentKey}';
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              html.window.open(paymentUrl, '_blank');
+  launchUrl(Uri.parse(paymentUrl), mode: LaunchMode.externalApplication);
             });
             return BlocProvider(
               create: (context) => PaymentStatusCubit(),

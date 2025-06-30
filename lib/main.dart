@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +10,7 @@ import 'package:restaurant_system/features/dashboard/data/models/order_model.dar
 import 'package:restaurant_system/config/bloc_observer.dart';
 import 'package:restaurant_system/config/di.dart';
 import 'package:restaurant_system/core/functions/on_generate_routes.dart';
+import 'package:window_size/window_size.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -23,6 +26,10 @@ void main() async {
   Hive.registerAdapter(OrderAdapter());
   //await Hive.openBox<Order>('pendingOrders');
   //addTestOrders(count: 10);
+  if (Platform.isWindows) {
+    setWindowMinSize(const Size(600, 400));
+    setWindowMaxSize(Size.infinite);
+  }
   runApp(MyApp());
 }
 
@@ -38,9 +45,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 Future<void> addTestOrders({int count = 10}) async {
-  final collection = FirebaseFirestore.instance.collection(OnlineOrderConstants.collectionName);
+  final collection = FirebaseFirestore.instance
+      .collection(OnlineOrderConstants.collectionName);
   int orderId = 0;
   for (int i = 0; i < count; i++) {
     final status = (i % 2 == 0) ? 'pending' : 'completed';
@@ -54,12 +61,11 @@ Future<void> addTestOrders({int count = 10}) async {
     final onlineOrder = {
       'status': status,
       'orderId': orderId,
-      'createdAt': Timestamp.fromDate(DateTime.now().subtract(Duration(minutes: i * 3))),
+      'createdAt':
+          Timestamp.fromDate(DateTime.now().subtract(Duration(minutes: i * 3))),
       'order': order,
     };
-orderId++;
+    orderId++;
     await collection.add(onlineOrder);
   }
-
-  print('✅ Added $count test orders.');
 }

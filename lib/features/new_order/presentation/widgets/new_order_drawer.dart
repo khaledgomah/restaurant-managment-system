@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:restaurant_system/core/custom_widgets/drawer_item_widget.dart';
+import 'package:restaurant_system/core/functions/on_generate_routes.dart';
 import 'package:restaurant_system/features/new_order/business_logic/drawer_cubit/new_order_cubit.dart';
 import 'package:restaurant_system/features/new_order/business_logic/drawer_cubit/new_order_state.dart';
 import 'package:restaurant_system/config/app_styles.dart';
@@ -30,7 +31,7 @@ class _CustomNewOrderDrawerState extends State<CustomNewOrderDrawer> {
               padding: const EdgeInsets.only(left: 16),
               child: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
                 },
                 icon: SvgPicture.asset(Assets.imagesArrowLeft),
               ),

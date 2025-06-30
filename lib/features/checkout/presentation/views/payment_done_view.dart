@@ -35,7 +35,6 @@ class _PaymentDoneScreenState extends State<PaymentDoneScreen> {
     return Scaffold(
       body: BlocBuilder<PaymentStatusCubit, PaymentStatusState>(
         builder: (context, state) {
-      
           if (state is PaymentStatusFailure) {
             return _buildStatusUI(
               icon: Icons.error,
@@ -43,13 +42,7 @@ class _PaymentDoneScreenState extends State<PaymentDoneScreen> {
               message: "Error occurred: ${state.message}",
             );
           }
-          if (state is PaymentStatusPending) {
-            return _buildStatusUI(
-              icon: Icons.hourglass_empty,
-              color: Colors.orange,
-              message: "Payment is still pending ⏳",
-            );
-          }
+
           if (state is PaymentStatusSuccess) {
             return _buildStatusUI(
               icon: Icons.check_circle,
@@ -57,7 +50,11 @@ class _PaymentDoneScreenState extends State<PaymentDoneScreen> {
               message: "Payment completed successfully ✅",
             );
           }
-          return const Center(child: CircularProgressIndicator());
+          return _buildStatusUI(
+            icon: Icons.hourglass_empty,
+            color: Colors.orange,
+            message: "Payment is still pending ⏳",
+          );
         },
       ),
     );

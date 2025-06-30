@@ -84,8 +84,8 @@ class Profile {
   dynamic dayOfTheMonth;
   bool? allowTransactionNotifications;
   bool? allowTransferNotifications;
-  int? sallefnyAmountWhole;
-  int? sallefnyFeesWhole;
+  num? sallefnyAmountWhole;
+  num? sallefnyFeesWhole;
   dynamic paymobAppFirstLogin;
   dynamic paymobAppLastActivity;
   bool? payoutEnabled;
@@ -299,8 +299,8 @@ class Profile {
             data['allow_transaction_notifications'] as bool?,
         allowTransferNotifications:
             data['allow_transfer_notifications'] as bool?,
-        sallefnyAmountWhole: data['sallefny_amount_whole'] as int?,
-        sallefnyFeesWhole: data['sallefny_fees_whole'] as int?,
+        sallefnyAmountWhole: data['sallefny_amount_whole'] as num?,
+        sallefnyFeesWhole: data['sallefny_fees_whole'] as num?,
         paymobAppFirstLogin: data['paymob_app_first_login'] as dynamic,
         paymobAppLastActivity: data['paymob_app_last_activity'] as dynamic,
         payoutEnabled: data['payout_enabled'] as bool?,

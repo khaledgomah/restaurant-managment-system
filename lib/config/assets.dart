@@ -1,44 +1,29 @@
-// ignore_for_file: prefer_single_quotes
+
+import 'package:flutter/foundation.dart';
+
 class Assets {
-  static const String imagesBigCola = "images/big_cola.svg";
+  static String _resolve(String path) =>
+      kIsWeb ? 'images/$path' : 'assets/images/$path';
 
-  static const String imagesBurger = "images/burger.svg";
-
-  static const String imagesDeluxe = "images/deluxe.svg";
-
-  static const String imagesIceCream = "images/ice_cream.svg";
-
-  static const String imagesLogIn = "images/log-in.svg";
-
-  static const String imagesLogo = "images/logo.png";
-
-  static const String imagesMeal = "images/meal.svg";
-
-  static const String imagesMenu = "images/menu.svg";
-
-  static const String imagesMoney = "images/money.svg";
-
-  static const String imagesOrder = "images/order.svg";
-
-  static const String imagesPieChart = "images/pie-chart.svg";
-
-  static const String imagesPizza = "images/pizza.png";
-
-  static const String imagesSettings = "images/settings.svg";
-
-  static const String imagesUsers = "images/users.svg";
-
-  static const String imagesArrowLeft = "images/arrow-left.svg";
-
-  static const String imagesRealBurger = "images/real_burger.png";
-
-  static const String imagesDelete = "images/delete.svg";
-
-  static const String imagesAdd = "images/add.svg";
-
-  static const String imagesMinus = "images/minus.svg";
-
-  static const String imagesRemove = "images/remove.svg";
-
-  static const String imagesRightArrow = "images/arrow_right.svg";
+  static String get imagesBigCola => _resolve('big_cola.svg');
+  static String get imagesBurger => _resolve('burger.svg');
+  static String get imagesDeluxe => _resolve('deluxe.svg');
+  static String get imagesIceCream => _resolve('ice_cream.svg');
+  static String get imagesLogIn => _resolve('log-in.svg');
+  static String get imagesLogo => _resolve('logo.png');
+  static String get imagesMeal => _resolve('meal.svg');
+  static String get imagesMenu => _resolve('menu.svg');
+  static String get imagesMoney => _resolve('money.svg');
+  static String get imagesOrder => _resolve('order.svg');
+  static String get imagesPieChart => _resolve('pie-chart.svg');
+  static String get imagesPizza => _resolve('pizza.png');
+  static String get imagesSettings => _resolve('settings.svg');
+  static String get imagesUsers => _resolve('users.svg');
+  static String get imagesArrowLeft => _resolve('arrow-left.svg');
+  static String get imagesRealBurger => _resolve('real_burger.png');
+  static String get imagesDelete => _resolve('delete.svg');
+  static String get imagesAdd => _resolve('add.svg');
+  static String get imagesMinus => _resolve('minus.svg');
+  static String get imagesRemove => _resolve('remove.svg');
+  static String get imagesRightArrow => _resolve('arrow_right.svg');
 }

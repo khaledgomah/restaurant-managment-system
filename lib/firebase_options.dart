@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -78,4 +75,15 @@ class DefaultFirebaseOptions {
     storageBucket: 'restaurant-system-d9536.firebasestorage.app',
     iosBundleId: 'com.example.restaurantSystem',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDm5oz5kHuttJMxDKJM2xXa4f3BsBgCs-o',
+    appId: '1:199230236197:web:0b468d7050b1e0681981cc',
+    messagingSenderId: '199230236197',
+    projectId: 'restaurant-system-d9536',
+    authDomain: 'restaurant-system-d9536.firebaseapp.com',
+    storageBucket: 'restaurant-system-d9536.firebasestorage.app',
+    measurementId: 'G-CHC4GY7PZT',
+  );
+
 }

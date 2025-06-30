@@ -1,13 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 class SalesInfoResponse {
-  final double totalRevenue;
+  final num totalRevenue;
   final int totalOrders;
   final int walkIns;
   final int onlineOrders;
   factory SalesInfoResponse.fromMap(Map<String, dynamic> map) {
     return SalesInfoResponse(
-      totalRevenue: map['total_revenue'] as double,
+      totalRevenue: map['total_revenue'] as num,
       totalOrders: map['total_orders'] as int,
       walkIns: map['walk_ins'] as int,
       onlineOrders: map['online_orders'] as int,

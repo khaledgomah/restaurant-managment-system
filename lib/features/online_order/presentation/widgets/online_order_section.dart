@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurant_system/config/app_styles.dart';
 import 'package:restaurant_system/core/functions/format_date.dart';
 import 'package:restaurant_system/features/online_order/presentation/cubit/online_order_cubit.dart';
 import 'package:restaurant_system/features/online_order/presentation/widgets/orders_list_view.dart';
@@ -22,9 +23,11 @@ class _OnlineOrderSectionState extends State<OnlineOrderSection> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           formatDate(DateTime.now()),
+          style: AppStyles.regular16(),
         ),
         SizedBox(height: 16),
         Row(

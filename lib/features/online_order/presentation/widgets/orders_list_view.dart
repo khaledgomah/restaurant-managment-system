@@ -14,11 +14,13 @@ class OrdersListView extends StatelessWidget {
       itemCount: orders.length,
       itemBuilder: (context, index) {
         return OnlineOrderWidget(
-          isSelected: false,
+          isSelected: index % 2 == 0,
           order: orders[index],
         );
       },
-      separatorBuilder: (context, index) => Divider(),
+      separatorBuilder: (context, index) => SizedBox(
+        height: 10,
+      ),
     );
   }
 }
