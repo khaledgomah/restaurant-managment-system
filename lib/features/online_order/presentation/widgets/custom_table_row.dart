@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_system/config/app_colors.dart';
 
 class CustomTableRow extends StatelessWidget {
-  final Widget widget1, widget2, widget3;
+  final Widget widget1, widget2;
+  final Widget? widget3;
   const CustomTableRow(
       {super.key,
       required this.widget1,
       required this.widget2,
-      required this.widget3});
+      this.widget3});
 
   @override
   Widget build(BuildContext context) {
