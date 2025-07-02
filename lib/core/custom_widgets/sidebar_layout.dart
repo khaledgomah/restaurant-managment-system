@@ -12,23 +12,21 @@ class SidebarLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backGroundcolor,
-      body: SingleChildScrollView(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 146,
-              child: CustomDrawer(routeName: routeName),
-            ),
-            SizedBox(
-              width: 22,
-            ),
-            Expanded(flex: 830, child: screen),
-            SizedBox(
-              width: 16,
-            ),
-          ],
-        ),
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 146,
+            child: CustomDrawer(routeName: routeName),
+          ),
+          SizedBox(
+            width: 22,
+          ),
+          Expanded(flex: 830, child: screen),
+          SizedBox(
+            width: 16,
+          ),
+        ],
       ),
     );
   }

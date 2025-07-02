@@ -5,14 +5,14 @@ import 'package:restaurant_system/core/functions/format_date.dart';
 import 'package:restaurant_system/features/online_order/presentation/cubit/online_order_cubit.dart';
 import 'package:restaurant_system/features/online_order/presentation/widgets/orders_list_view.dart';
 
-class OnlineOrderSection extends StatefulWidget {
-  const OnlineOrderSection({super.key});
+class OnlineOrdersSection extends StatefulWidget {
+  const OnlineOrdersSection({super.key});
 
   @override
-  State<OnlineOrderSection> createState() => _OnlineOrderSectionState();
+  State<OnlineOrdersSection> createState() => _OnlineOrdersSectionState();
 }
 
-class _OnlineOrderSectionState extends State<OnlineOrderSection> {
+class _OnlineOrdersSectionState extends State<OnlineOrdersSection> {
   bool isPending = true;
   @override
   void initState() {
@@ -22,8 +22,7 @@ class _OnlineOrderSectionState extends State<OnlineOrderSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView(
       children: [
         Text(
           formatDate(DateTime.now()),

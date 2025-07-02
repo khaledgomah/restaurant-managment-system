@@ -1,11 +1,13 @@
 part of 'online_order_cubit.dart';
 
 class OnlineOrderState {
-  final Map<String, int>? selectedOrder;
+  final List<bool>? isDone;
+  final OnlineOrder? selectedOrder;
   final OrdersStates ordersStates;
   final List<OnlineOrder>? pendingOrders;
   final List<OnlineOrder>? completedOrders;
   const OnlineOrderState({
+    this.isDone,
     this.selectedOrder,
     required this.ordersStates,
     this.pendingOrders,
@@ -13,12 +15,14 @@ class OnlineOrderState {
   });
 
   OnlineOrderState copyWith({
+    List<bool>? isDone,
     OrdersStates? ordersStates,
     List<OnlineOrder>? pendingOrders,
     List<OnlineOrder>? completedOrders,
-    Map<String, int>? selectedOrder,
+    OnlineOrder? selectedOrder,
   }) {
     return OnlineOrderState(
+      isDone: isDone ?? this.isDone,
       selectedOrder: selectedOrder ?? this.selectedOrder,
       ordersStates: ordersStates ?? this.ordersStates,
       pendingOrders: pendingOrders ?? this.pendingOrders,

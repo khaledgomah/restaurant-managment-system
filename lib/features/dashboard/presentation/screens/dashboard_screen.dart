@@ -24,14 +24,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return SidebarLayout(
         routeName: AppRoutes.dashboard,
-        screen: Row(
-          children: [
-            Expanded(flex: 509, child: Dashboard()),
-            SizedBox(
-              width: 22,
-            ),
-            Expanded(flex: 309, child: Statistics()),
-          ],
+        screen: SingleChildScrollView(
+          child: Row(
+            children: [
+              Expanded(flex: 509, child: Dashboard()),
+              SizedBox(
+                width: 22,
+              ),
+              Expanded(flex: 309, child: Statistics()),
+            ],
+          ),
         ));
   }
 }

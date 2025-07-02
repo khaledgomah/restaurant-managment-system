@@ -9,12 +9,14 @@ import 'package:restaurant_system/features/online_order/presentation/widgets/is_
 
 class OnlineOrderWidget extends StatelessWidget {
   const OnlineOrderWidget(
-      {super.key, required this.order, required this.isSelected});
+      {super.key, required this.order, required this.isSelected, required this.onSelected});
   final bool isSelected;
   final OnlineOrder order;
+  final void Function() onSelected;
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      
       tileColor: isSelected ? AppColors.primaryColor : AppColors.white,
       title: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -61,9 +63,7 @@ class OnlineOrderWidget extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () {
-        // Handle order tap
-      },
+      onTap:onSelected
     );
   }
 }

@@ -25,7 +25,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(OrderAdapter());
   //await Hive.openBox<Order>('pendingOrders');
-  await addTestOrders(count: 20);
+  // await addTestOrders(count: 20);
   if (Platform.isWindows) {
     setWindowMinSize(const Size(600, 400));
     setWindowMaxSize(Size.infinite);
