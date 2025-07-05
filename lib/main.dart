@@ -25,7 +25,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(OrderAdapter());
   //await Hive.openBox<Order>('pendingOrders');
-  // await addTestOrders(count: 20);
+  await addTestOrders(count: 20);
   if (Platform.isWindows) {
     setWindowMinSize(const Size(600, 400));
     setWindowMaxSize(Size.infinite);
@@ -67,7 +67,8 @@ Future<void> addTestOrders({int count = 10}) async {
           Timestamp.fromDate(DateTime.now().subtract(Duration(minutes: i * 3))),
       'order': order,
     };
+    
+    await collection.doc(orderId.toString()).set(onlineOrder);
     orderId++;
-    await collection.add(onlineOrder);
   }
 }

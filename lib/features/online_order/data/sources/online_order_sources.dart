@@ -22,6 +22,17 @@ class OnlineOrderRemoteDataSource {
     } catch (e) {
       return Left(FirebaseFailure('Failed to fetch completed orders: $e'));
     }
+  } 
+  Future<Either<Failure, void>> completeOrder(int orderId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(OnlineOrderConstants.collectionName)
+          .doc(orderId.toString())
+          .update({'status': 'completed'});
+      return Right(null);
+    } catch (e) {
+      return Left(FirebaseFailure('Failed to make order complete: $e'));
+    }
   }
 
   Future<Either<Failure, List<OnlineOrder>>> getPendingOrders() async {
@@ -38,19 +49,6 @@ class OnlineOrderRemoteDataSource {
       return Right(orders);
     } catch (e) {
       return Left(FirebaseFailure('Failed to fetch pending orders: $e'));
-    }
-  }
-
-  Future<Either<Failure, void>> completeOrder(String orderId) async {
-    try {
-      await FirebaseFirestore.instance
-          .collection(OnlineOrderConstants.collectionName)
-          .doc(orderId)
-          .update({'status': 'completed'});
-
-      return Right(null);
-    } catch (e) {
-      return Left(FirebaseFailure('Failed to complete order: $e'));
     }
   }
 }

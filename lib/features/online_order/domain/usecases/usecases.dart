@@ -35,12 +35,12 @@ class GetPendingOrdersUsecase implements UseCase<List<OnlineOrder>, NoParams> {
   }
 }
 
-class CompleteOrderUsecase implements UseCase<void, String> {
+class CompleteOrderUsecase implements UseCase<void, int> {
   final OnlineOrderRepository onlineOrderRepository;
   CompleteOrderUsecase(this.onlineOrderRepository);
   
   @override
-  Future<Either<Failure, void>> call(String orderId) async {
+  Future<Either<Failure, void>> call(int orderId) async {
     return await onlineOrderRepository.completeOrder(orderId);
   }
 }

@@ -14,11 +14,15 @@ class OnlineOrderCubit extends Cubit<OnlineOrderState> {
         super(OnlineOrderState(ordersStates: OrdersStates.loading));
 
   void changeSelectedOrder(OnlineOrder order) {
-    emit(state.copyWith(selectedOrder: order,isDone:List.filled(order.order.length, false), ));
+    emit(state.copyWith(
+      updateSelectedOrder: true,
+      selectedOrder: order,
+      isDone: List.filled(order.order.length, false),
+    ));
   }
 
   void updateIsDone(int index, bool value) {
-    List<bool> isDone= state.isDone!;
+    List<bool> isDone = state.isDone!;
     isDone[index] = value;
     emit(state.copyWith(isDone: isDone));
   }
@@ -66,7 +70,7 @@ class OnlineOrderCubit extends Cubit<OnlineOrderState> {
     );
   }
 
-  Future<void> completeOrder(String orderId) async {
+  Future<void> completeOrder(int orderId) async {
     emit(state.copyWith(ordersStates: OrdersStates.loading));
 
     final result = await _onlineOrderUseCases.completeOrder(orderId);
@@ -93,6 +97,9 @@ class OnlineOrderCubit extends Cubit<OnlineOrderState> {
         }
 
         emit(state.copyWith(
+          updateSelectedOrder: true,
+          isDone: List.filled(pending?[0].order.length?? 0, false),
+          selectedOrder:pending?[0],
           ordersStates: OrdersStates.success,
           pendingOrders: pending,
           completedOrders: completed,

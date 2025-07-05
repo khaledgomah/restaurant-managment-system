@@ -15,6 +15,7 @@ class OnlineOrderState {
   });
 
   OnlineOrderState copyWith({
+    bool updateSelectedOrder = false,
     List<bool>? isDone,
     OrdersStates? ordersStates,
     List<OnlineOrder>? pendingOrders,
@@ -23,8 +24,7 @@ class OnlineOrderState {
   }) {
     return OnlineOrderState(
       isDone: isDone ?? this.isDone,
-      selectedOrder: selectedOrder ?? this.selectedOrder,
-      ordersStates: ordersStates ?? this.ordersStates,
+selectedOrder: updateSelectedOrder ? selectedOrder : this.selectedOrder,      ordersStates: ordersStates ?? this.ordersStates,
       pendingOrders: pendingOrders ?? this.pendingOrders,
       completedOrders: completedOrders ?? this.completedOrders,
     );

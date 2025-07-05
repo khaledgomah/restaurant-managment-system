@@ -5,5 +5,5 @@ import 'package:restaurant_system/features/online_order/data/models/online_order
 abstract class OnlineOrderRepository {
   Future<Either<Failure,List<OnlineOrder>>> getCompletedOrders();
   Future<Either<Failure,List<OnlineOrder>>> getPendingOrders();
-  Future<Either<Failure, void>> completeOrder(String orderId);
+  Future<Either<Failure, void>> completeOrder(int orderId);
 }

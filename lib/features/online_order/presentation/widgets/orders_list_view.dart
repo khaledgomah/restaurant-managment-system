@@ -11,29 +11,27 @@ class OrdersListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OnlineOrderCubit, OnlineOrderState>(
-      builder: (context, state) {
-        final selectedOrder = state.selectedOrder;
-        return ListView.separated(
-          shrinkWrap: true,
-          itemCount: orders.length,
-          itemBuilder: (context, index) {
-            final order = orders[index];
-            final isSelected = selectedOrder != null && selectedOrder.orderId == order.orderId;
-            return OnlineOrderWidget(
-              onSelected: () {
-                BlocProvider.of<OnlineOrderCubit>(context)
-                    .changeSelectedOrder(order);
-              },
-              isSelected: isSelected,
-              order: order,
-            );
+    final selectedOrder =
+        BlocProvider.of<OnlineOrderCubit>(context).state.selectedOrder;
+    return ListView.separated(
+      shrinkWrap: true,
+      itemCount: orders.length,
+      itemBuilder: (context, index) {
+        final order = orders[index];
+        final isSelected =
+            selectedOrder != null && selectedOrder.orderId == order.orderId;
+        return OnlineOrderWidget(
+          onSelected: () {
+            BlocProvider.of<OnlineOrderCubit>(context)
+                .changeSelectedOrder(order);
           },
-          separatorBuilder: (context, index) => SizedBox(
-            height: 10,
-          ),
+          isSelected: isSelected,
+          order: order,
         );
       },
+      separatorBuilder: (context, index) => SizedBox(
+        height: 10,
+      ),
     );
   }
 }

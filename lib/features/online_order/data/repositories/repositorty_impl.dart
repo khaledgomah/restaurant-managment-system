@@ -20,7 +20,7 @@ class OnlineOrderRepositoryImpl  implements OnlineOrderRepository {
   }
 
   @override
-  Future<Either<Failure, void>> completeOrder(String orderId) async {
+  Future<Either<Failure, void>> completeOrder(int orderId) async {
     return onlineOrderRemoteDataSource.completeOrder(orderId);
   }
 }
