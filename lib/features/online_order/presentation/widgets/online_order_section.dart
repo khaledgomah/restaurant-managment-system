@@ -32,7 +32,7 @@ class _OnlineOrdersSectionState extends State<OnlineOrdersSection> {
         }
         return ListView(
           children: [
-            LiveClock(),
+             LiveClock(),
             SizedBox(height: 16),
             Row(
               children: [

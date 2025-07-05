@@ -27,6 +27,8 @@ class DashboardCubit extends Cubit<DashboardState> {
     emit(state.copyWith(visibleCount: newCount));
   }
 
+  
+
   Future<void> getDashboardData(int duration) async {
     this.duration =
         duration; // to select the duration of the sales data showing
@@ -47,6 +49,7 @@ class DashboardCubit extends Cubit<DashboardState> {
         (_) => null,
         (r) {
           _itemModels = r;
+          
         },
       );
       salesResponse.fold(

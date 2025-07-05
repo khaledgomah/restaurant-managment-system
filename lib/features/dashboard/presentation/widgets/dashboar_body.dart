@@ -7,34 +7,6 @@ import 'package:restaurant_system/config/app_colors.dart';
 import 'package:restaurant_system/config/app_styles.dart';
 import 'package:restaurant_system/core/functions/get_image_path.dart';
 
-class DashboarBodyBuilder extends StatelessWidget {
-  const DashboarBodyBuilder({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<DashboardCubit, DashboardState>(
-      builder: (context, state) {
-        if (state is DashboardFailure) {
-          return Text('Sorry there was an error: ${state.failure.message}');
-        } else if (state is DashboardSuccess) {
-          List<ItemModel> data = [];
-          state.dashboardModel.items.forEach(
-            (key, value) => data.addAll(value),
-          );
-          data.sort(
-            (a, b) => b.orders.compareTo(a.orders),
-          );
-          final visibleItems = data.take(state.visibleCount).toList();
-
-          return DashboarBody(
-            list: visibleItems,
-          );
-        }
-        return Center(child: CircularProgressIndicator());
-      },
-    );
-  }
-}
 
 class DashboarBody extends StatelessWidget {
   const DashboarBody({super.key, required this.list});
